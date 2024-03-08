@@ -1,13 +1,14 @@
 
 import { useState } from "react";
 
-function AddNoteForm({ onAdd }) {
+function AddNoteForm({ onAdd, notes }) {
   const [note, setNote] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onAdd(note);
-    setNote(''); // Reset input after submission
+    sessionStorage.setItem('nots', JSON.stringify([...notes,note]));
+    setNote(''); 
   };
 
   return (
@@ -17,7 +18,7 @@ function AddNoteForm({ onAdd }) {
           New Note
         </label>
         <input
-          className="shadow rounded-lg appearance-none border rounded w-full py-20 px-5 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow rounded-lg appearance-none border  w-full py-20 px-5 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="note"
           type="text"
           placeholder="Add a new note"
